@@ -41,7 +41,8 @@ def fv_deferred_due(R, i, n, k):
 
 def randomize_inputs():
     st.session_state["dash_R"] = float(random.choice([1000, 2500, 5000, 10000, 15000, 20000]))
-    st.session_state["dash_i"] = round(random.uniform(0.02, 0.12), 4)
+    # Buong numero mula 2% hanggang 12% (walang butal)
+    st.session_state["dash_i"] = float(random.randint(2, 12))
     st.session_state["dash_n"] = float(random.randint(3, 15))
     st.session_state["dash_k"] = float(random.randint(1, 5))
 
@@ -55,7 +56,7 @@ c1, c2, c3, c4 = st.columns(4)
 with c1:
     R = st.number_input("Regular Payment (R)", value=st.session_state.get("dash_R", None), placeholder="e.g. 10000", step=1000.0, format="%g", key="dash_R")
 with c2:
-    i_in = st.number_input("Interest Rate (i)", value=st.session_state.get("dash_i", None), placeholder="e.g. 0.08 or 8", step=0.01, format="%g", key="dash_i")
+    i_in = st.number_input("Interest Rate (i %)", value=st.session_state.get("dash_i", None), placeholder="e.g. 8", step=1.0, format="%g", key="dash_i")
     i = (i_in / 100.0 if i_in >= 1.0 else i_in) if i_in is not None else None
 with c3:
     n = st.number_input("Total Payments (n)", value=st.session_state.get("dash_n", None), placeholder="e.g. 5", step=1.0, format="%g", key="dash_n")
